@@ -5,8 +5,7 @@ export const favoritePage = async (root) => {
 
   root.innerHTML = `
     <div id="storiesContainer">
-      <div id="mapStories"></div>
-      <h2 style="padding: 30px 0px 10px; text-align:center">Stories</h2>
+      <h2 style="padding: 30px 0px 10px; text-align:center">Favorite</h2>
         <div id="storiesContainer2">
           <div id="toContent" class="storiesContainerCard">
            ${
