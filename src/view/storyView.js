@@ -48,4 +48,25 @@ export class StoryView {
   reload() {
     window.location.reload();
   }
+
+  handleRegister() {
+    alert("Registrasi berhasil.");
+    window.location.hash = "/stories";
+    window.location.reload();
+
+    view.showMessage("Registrasi berhasil.");
+    window.location.hash = "/login";
+  }
+
+  handleLogin() {
+    alert("Login berhasil.");
+    window.location.hash = "/stories";
+    window.location.reload();
+  }
+
+  handleStoryAdded() {
+    alert("Story berhasil ditambahkan!");
+    window.location.hash = "/stories";
+    window.location.reload();
+  }
 }

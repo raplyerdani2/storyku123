@@ -7,14 +7,13 @@ export const handlePost = {
     try {
       const result = await model.register(formData);
       if (!result.error) {
-        view.showMessage("Registrasi berhasil.");
-        view.navigate("/login");
+        view.handleRegister()
       } else {
         alert(result.message);
         view.reload();
       }
     } catch (err) {
-      alert("Terjadi kesalahan pada server.");
+      alert(err);
     }
   },
 
@@ -23,15 +22,13 @@ export const handlePost = {
     try {
       const result = await model.login(formData);
       if (!result.error) {
-        view.showMessage("Login berhasil.");
-        view.navigate("/stories");
-        view.reload();
+        view.handleLogin()
       } else {
         view.showMessage(result.message);
         view.reload();
       }
     } catch (err) {
-      alert("Terjadi kesalahan pada server.");
+      alert(err);
     }
   },
 
@@ -43,12 +40,10 @@ export const handlePost = {
       if (res.error) {
         view.showMessage(res.message);
       } else {
-        view.showMessage("Story berhasil ditambahkan!");
-        view.navigate("/stories");
-        view.reload();
+        view.handleStoryAdded();
       }
     } catch (err) {
-      alert("Terjadi kesalahan pada server.");
+      alert(err);
     }
   },
 };
