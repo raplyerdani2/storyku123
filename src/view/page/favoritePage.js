@@ -7,7 +7,7 @@ export const favoritePage = async (root) => {
     <div id="storiesContainer">
       <h2 style="padding: 30px 0px 10px; text-align:center">Favorite</h2>
         <div id="storiesContainer2">
-          <div id="toContent" class="storiesContainerCard">
+          <div id="toContent" class="storiesContainerCard" style="padding-top: 100px>
            ${
           favorites.length > 0
             ? favorites
