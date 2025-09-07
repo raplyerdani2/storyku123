@@ -51,11 +51,8 @@ export class StoryView {
 
   handleRegister() {
     alert("Registrasi berhasil.");
-    window.location.hash = "/stories";
-    window.location.reload();
-
-    view.showMessage("Registrasi berhasil.");
     window.location.hash = "/login";
+    window.location.reload();
   }
 
   handleLogin() {

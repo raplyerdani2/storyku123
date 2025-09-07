@@ -38,6 +38,7 @@ export const handlePost = {
       const res = await model.addStory(formData, token);
       if (res.error) {
         view.showMessage(res.message);
+        view.reload();
       } else {
         view.handleStoryAdded();
       }
