@@ -8,7 +8,7 @@ export const handlePost = {
       if (!result.error) {
         view.handleRegister()
       } else {
-        alert(result.message);
+        view.showMessage(result.message);
         view.reload();
       }
     } catch (err) {
