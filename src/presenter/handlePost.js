@@ -1,4 +1,3 @@
-import { askNotificationPermission, subscribeUser } from "../index.js";
 import { notificationService } from "../services/notificationService.js";
 
 export const handlePost = {
