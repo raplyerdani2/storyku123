@@ -84,8 +84,11 @@ export const storiesPage = async (root, stories) => {
   const markers = [];
 
   allStories.forEach((element) => {
-    if (element.lat && element.lon) {
-      const coor = [parseFloat(element.lat), parseFloat(element.lon)];
+    const lat = parseFloat(element.lat);
+    const lon = parseFloat(element.lon);
+
+    if (!isNaN(lat) && !isNaN(lon)) {
+      const coor = [lat, lon];
       const marker = L.marker(coor).addTo(myMap);
       marker.bindPopup(`<b>${element.name}</b><br>${element.description}`);
       markers.push(coor);
