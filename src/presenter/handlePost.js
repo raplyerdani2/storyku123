@@ -1,4 +1,5 @@
 import { askNotificationPermission, subscribeUser } from "../index.js";
+import { notificationService } from "../services/notificationService.js";
 
 export const handlePost = {
   handleRegister: async (model, view, formData) => {
@@ -36,13 +37,7 @@ export const handlePost = {
 
   handleAddStory: async (model, view, token, formData) => {
     view.showLoading();
-    const reg = await navigator.serviceWorker.getRegistration();
-    if (reg) {
-      const permission = await askNotificationPermission();
-      if (permission === "granted") {
-        await subscribeUser(reg);
-      }
-    }
+    await notificationService.registerAndSubscribe();
     try {
       const res = await model.addStory(formData, token);
       if (res.error) {
@@ -52,8 +47,8 @@ export const handlePost = {
         view.navigate("/stories");
         view.reload();
       }
-    } catch {
-      const tempStory = Object.fromEntries(formData.entries());
+    } catch (err) {
+      alert("Terjadi kesalahan pada server.");
     }
   },
 };

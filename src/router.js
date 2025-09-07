@@ -14,15 +14,14 @@ export class Router {
 
     const directPath = "/" + parts.join("/");
     if (this.routes[directPath]) {
-      this.routes[directPath](this.app); // ✅ Kirim root/app
+      this.routes[directPath](this.app);
       return;
     }
 
-    // Untuk halaman detail
     if (parts.length === 2) {
       const basePath = `/${parts[0]}/:id`;
       if (this.routes[basePath]) {
-        this.routes[basePath]({ id: parts[1] }, this.app); // ✅ Kirim app juga
+        this.routes[basePath]({ id: parts[1] }, this.app);
         return;
       }
     }

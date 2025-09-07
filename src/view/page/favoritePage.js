@@ -39,7 +39,6 @@ export const favoritePage = async (root) => {
       </div>
     `;
 
-  // Hapus favorite story
   const deleteBtns = document.querySelectorAll(".delete-fav");
   deleteBtns.forEach((btn) => {
     btn.addEventListener("click", async (e) => {

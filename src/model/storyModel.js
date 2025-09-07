@@ -1,17 +1,57 @@
 import { getApi } from "./api/getApi.js";
 import { postApi } from "./api/postApi.js";
+import {
+  clearStoriesIdb,
+  getAllStoriesIdb,
+  getDetailStoryIdb,
+  saveDetailStoryIdb,
+  saveStoryIdb,
+} from "../utils/db.js";
 
 export class StoryModel {
+  // async getStories(token) {
+  //   return getApi.getStories("https://story-api.dicoding.dev/v1", token);
+  // }
+
+  // async getStoryById(id, token) {
+  //   return getApi.getDetailStories(
+  //     "https://story-api.dicoding.dev/v1",
+  //     id,
+  //     token
+  //   );
+  // }
+
   async getStories(token) {
-    return getApi.getStories("https://story-api.dicoding.dev/v1", token);
+    try {
+      const data = await getApi.getStories("https://story-api.dicoding.dev/v1", token);
+      if (data?.listStory) {
+        await clearStoriesIdb();
+        for (const story of data.listStory) {
+          await saveStoryIdb(story);
+        }
+      }
+      return data.listStory;
+    } catch (error) {
+      console.warn("Gagal ambil API, fallback ke IndexedDB:", error);
+      return await getAllStoriesIdb();
+    }
   }
 
   async getStoryById(id, token) {
-    return getApi.getDetailStories(
-      "https://story-api.dicoding.dev/v1",
-      id,
-      token
-    );
+    try {
+      const data = await getApi.getDetailStories(
+        "https://story-api.dicoding.dev/v1",
+        id,
+        token
+      );
+      if (data?.story) {
+        await saveDetailStoryIdb(data.story);
+      }
+      return data.story;
+    } catch (error) {
+      console.warn(`Gagal ambil detail story ${id}, fallback ke IndexedDB`);
+      return await getDetailStoryIdb(id);
+    }
   }
 
   async register({ name, email, password }) {
