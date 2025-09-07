@@ -9,18 +9,6 @@ import {
 } from "../utils/db.js";
 
 export class StoryModel {
-  // async getStories(token) {
-  //   return getApi.getStories("https://story-api.dicoding.dev/v1", token);
-  // }
-
-  // async getStoryById(id, token) {
-  //   return getApi.getDetailStories(
-  //     "https://story-api.dicoding.dev/v1",
-  //     id,
-  //     token
-  //   );
-  // }
-
   async getStories(token) {
     try {
       const data = await getApi.getStories("https://story-api.dicoding.dev/v1", token);

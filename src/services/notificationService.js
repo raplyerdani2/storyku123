@@ -1,10 +1,6 @@
-// src/services/notificationService.js
 import { askNotificationPermission, subscribeUser } from "../index.js";
 
 export const notificationService = {
-  /**
-   * Mendaftarkan Service Worker dan melakukan subscribe Push Notification
-   */
   async registerAndSubscribe() {
     try {
       const reg = await navigator.serviceWorker.getRegistration();
