@@ -16,7 +16,7 @@ const storyModel = new StoryModel();
 
 router.register("/stories", () => logicRegister.get.stories(app));
 
-router.register("/favorite", favoritePage);
+router.register("/favorite", (app) => favoritePage(app));
 
 router.register("/stories/:id", (params) =>
   logicRegister.get.detailStories(app, params)
