@@ -4,10 +4,12 @@ export const favoritePage = async (root) => {
   const favorites = await getAllFavoriteStoriesIdb();
 
   root.innerHTML = `
-    <div>
-      <h2 style="text-align:center">Favorite Stories</h2>
-      <div id="favoriteContainer" style="display: grid; gap: 15px;">
-        ${
+    <div id="storiesContainer">
+      <div id="mapStories"></div>
+      <h2 style="padding: 30px 0px 10px; text-align:center">Stories</h2>
+        <div id="storiesContainer2">
+          <div id="toContent" class="storiesContainerCard">
+           ${
           favorites.length > 0
             ? favorites
                 .map(
@@ -31,9 +33,10 @@ export const favoritePage = async (root) => {
                 .join("")
             : `<p style="text-align:center">Belum ada story favorit</p>`
         }
+          </div>
+        </div>
       </div>
-    </div>
-  `;
+    `;
 
   // Hapus favorite story
   const deleteBtns = document.querySelectorAll(".delete-fav");
