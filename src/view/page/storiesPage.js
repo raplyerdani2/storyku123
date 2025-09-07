@@ -1,4 +1,4 @@
-import { getAllStoriesIdb, saveFavoriteStoryIdb } from "../../utils/db.js";
+import { getAllStoriesIdb } from "../../utils/db.js";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import markerIcon from "leaflet/dist/images/marker-icon.png";
@@ -20,17 +20,18 @@ export const storiesPage = async (root, stories) => {
     allStories = await getAllStoriesIdb();
   }
 
+  console.log(allStories);
   root.innerHTML = `
     <div id="storiesContainer">
       <div id="mapStories"></div>
       <h2 style="padding: 30px 0px 10px; text-align:center">Stories</h2>
         <div id="storiesContainer2">
           <div id="toContent" class="storiesContainerCard">
-            ${allStories
+            ${stories
               .map(
                 (s) => `
-                <div id="card-story" tabindex="0">
-                  <a href="#/stories/${s.id}">
+                <a href="#/stories/${s.id}">
+                  <div id="card-story" tabindex="0">
                     <div id="card-story-img">
                       <img src="${s.photoUrl}" alt="Nama akun ${s.name} dengan deskripsi ${s.description}"/>
                     </div>
@@ -40,35 +41,16 @@ export const storiesPage = async (root, stories) => {
                       <p>lat: ${s.lat}</p>
                       <p>lon:${s.lon}</p>
                     </div>
-                  </a>
-                  <button class="favorite-btn" data-id="${s.id}">❤️ Favorite</button>
-                </div>
+                  </div>
+                </a>
                 `
               )
               .join("")}
-          </div>
+              </div>
         </div>
       </div>
     `;
 
-  // === EVENT LISTENER UNTUK FAVORITE ===
-  const favButtons = document.querySelectorAll(".favorite-btn");
-  favButtons.forEach((btn) => {
-    btn.addEventListener("click", async (e) => {
-      const id = e.target.dataset.id;
-      const story = allStories.find((s) => s.id === id);
-
-      if (story) {
-        await saveFavoriteStoryIdb(story);
-        alert("Story ditambahkan ke Favorite!");
-
-        // Redirect ke halaman Favorite
-        window.location.hash = "#/favorite";
-      }
-    });
-  });
-
-  // === LEAFLET MAP ===
   const header = document.getElementById("header");
   const footer = document.getElementById("footer");
   header.style.display = "flex";
@@ -83,11 +65,13 @@ export const storiesPage = async (root, stories) => {
 
   const markers = [];
 
-  allStories.forEach((element) => {
+  stories.forEach((element) => {
     if (element.lat && element.lon) {
       const coor = [parseFloat(element.lat), parseFloat(element.lon)];
+
       const marker = L.marker(coor).addTo(myMap);
       marker.bindPopup(`<b>${element.name}</b><br>${element.description}`);
+
       markers.push(coor);
     }
   });
