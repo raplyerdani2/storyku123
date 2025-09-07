@@ -26,7 +26,7 @@ export const favoritePage = async (root) => {
                         <p>lon:${s.lon}</p>
                         </div>
                         </a>
-                    <button class="delete-fav" data-id="${s.id}" style="margin: 10px 0px; padding: 5px">❌ Hapus</button>
+                    <button class="delete-fav" data-id="${s.id}" style="margin: 10px 0px; padding: 5px; cursor: pointer">❌ Hapus</button>
                   </div>
                 </div>
                 `

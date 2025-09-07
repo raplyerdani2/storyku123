@@ -42,7 +42,7 @@ export const storiesPage = async (root, stories) => {
                         <p>lon:${s.lon}</p>
                       </div>
                     </a>
-                    <button class="favorite-btn" style="margin: 10px 0px; padding: 5px" data-id="${s.id}">❤️ Favorite</button>
+                    <button class="favorite-btn" style="margin: 10px 0px; padding: 5px; cursor: pointer" data-id="${s.id}">❤️ Favorite</button>
                   </div>
                 </div>
                 `
