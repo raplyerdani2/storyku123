@@ -1,5 +1,8 @@
 import { precacheAndRoute } from "workbox-precaching";
-import { StaleWhileRevalidate } from "workbox-strategies";
+import { registerRoute } from "workbox-routing";
+import { CacheFirst, NetworkFirst, StaleWhileRevalidate } from "workbox-strategies";
+import { ExpirationPlugin } from "workbox-expiration";
+import { CacheableResponsePlugin } from "workbox-cacheable-response";
 
 precacheAndRoute(self.__WB_MANIFEST);
 
