@@ -1,4 +1,5 @@
 import { precacheAndRoute } from "workbox-precaching";
+import { StaleWhileRevalidate } from "workbox-strategies";
 
 precacheAndRoute(self.__WB_MANIFEST);
 
@@ -46,3 +47,79 @@ self.addEventListener("push", (event) => {
 
   event.waitUntil(self.registration.showNotification(title, options));
 });
+
+// --- RUNTIME CACHING ---
+// Google Fonts
+registerRoute(
+  ({ url }) =>
+    url.origin === "https://fonts.googleapis.com" ||
+    url.origin === "https://fonts.gstatic.com",
+  new CacheFirst({ cacheName: "google-fonts" })
+);
+
+// Fontawesome / CDN
+registerRoute(
+  ({ url }) =>
+    url.origin === "https://cdnjs.cloudflare.com" || url.origin.includes("fontawesome"),
+  new CacheFirst({ cacheName: "fontawesome" })
+);
+
+// Avatar API
+registerRoute(
+  ({ url }) => url.origin === "https://ui-avatars.com",
+  new CacheFirst({
+    cacheName: "avatars-api",
+    plugins: [new CacheableResponsePlugin({ statuses: [0, 200] })],
+  })
+);
+
+// API JSON (kecuali image)
+registerRoute(
+  ({ url }) => url.origin === "https://story-api.dicoding.dev",
+  new NetworkFirst({
+    cacheName: "storyku-api",
+    plugins: [
+      new CacheableResponsePlugin({ statuses: [0, 200] }),
+      new ExpirationPlugin({
+        maxEntries: 50,
+        maxAgeSeconds: 7 * 24 * 60 * 60, // cache 7 hari
+      }),
+    ],
+  })
+);
+
+// API Images
+registerRoute(
+  ({ url }) => url.origin === "https://story-api.dicoding.dev",
+  new StaleWhileRevalidate({
+    cacheName: "storyku-api",
+    plugins: [
+      new CacheableResponsePlugin({ statuses: [0, 200] }),
+      new ExpirationPlugin({
+        maxEntries: 50,
+        maxAgeSeconds: 7 * 24 * 60 * 60, // cache 7 hari
+      }),
+    ],
+  })
+);
+
+// Maptiler API
+registerRoute(
+  ({ url }) => url.origin.includes("maptiler"),
+  new CacheFirst({ cacheName: "maptiler-api" })
+);
+
+// OpenStreetMap tiles
+registerRoute(
+  ({ url }) => url.origin.includes("tile.openstreetmap.org"),
+  new CacheFirst({
+    cacheName: "osm-tiles",
+    plugins: [
+      new ExpirationPlugin({
+        maxEntries: 200,
+        maxAgeSeconds: 7 * 24 * 60 * 60, // 7 hari
+      }),
+      new CacheableResponsePlugin({ statuses: [200] }),
+    ],
+  })
+);
