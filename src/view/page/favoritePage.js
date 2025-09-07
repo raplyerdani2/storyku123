@@ -12,13 +12,7 @@ export const favoritePage = async (root) => {
             ? favorites
                 .map(
                   (s) => `
-                  <div class="fav-card">
-                    <img src="${s.photoUrl}" alt="${s.name}" width="200">
-                    <h3>${s.name}</h3>
-                    <p>${s.description}</p>
-                  </div>
-
-                  <div id="card-story" tabindex="0">
+                  <div id="card-story" tabindex="0" class="fav-card">
                   <a href="#/stories/${s.id}">
                     <div id="card-story-img">
                       <img src="${s.photoUrl}" alt="Nama akun ${s.name} dengan deskripsi ${s.description}"/>
