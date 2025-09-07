@@ -1,16 +1,4 @@
 import { getAllStoriesIdb } from "../../utils/db.js";
-import L from "leaflet";
-import "leaflet/dist/leaflet.css";
-import markerIcon from "leaflet/dist/images/marker-icon.png";
-import markerShadow from "leaflet/dist/images/marker-shadow.png";
-import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
-
-delete L.Icon.Default.prototype._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: markerIcon2x,
-  iconUrl: markerIcon,
-  shadowUrl: markerShadow,
-});
 
 export const storiesPage = async (root, stories) => {
   let allStories = stories;
@@ -60,7 +48,6 @@ export const storiesPage = async (root, stories) => {
 
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "&copy; OpenStreetMap contributors",
-    crossOrigin: true,
   }).addTo(myMap);
 
   const markers = [];
