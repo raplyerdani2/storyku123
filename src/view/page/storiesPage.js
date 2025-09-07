@@ -30,18 +30,20 @@ export const storiesPage = async (root, stories) => {
               .map(
                 (s) => `
                 <div id="card-story" tabindex="0">
-                  <a href="#/stories/${s.id}">
-                    <div id="card-story-img">
-                      <img src="${s.photoUrl}" alt="Nama akun ${s.name} dengan deskripsi ${s.description}"/>
-                    </div>
-                    <div style="display:flex; flex-direction: column; gap: 5px; font-weight: bold">
-                      <h3>Nama: ${s.name}</h3>
-                      <h3>Deskripsi: ${s.description}</h3>
-                      <p>lat: ${s.lat}</p>
-                      <p>lon:${s.lon}</p>
-                    </div>
+                  <div>
+                    <a href="#/stories/${s.id}">
+                      <div id="card-story-img">
+                        <img src="${s.photoUrl}" alt="Nama akun ${s.name} dengan deskripsi ${s.description}"/>
+                      </div>
+                      <div style="display:flex; flex-direction: column; gap: 5px; font-weight: bold">
+                        <h3>Nama: ${s.name}</h3>
+                        <h3>Deskripsi: ${s.description}</h3>
+                        <p>lat: ${s.lat}</p>
+                        <p>lon:${s.lon}</p>
+                      </div>
+                    </a>
                     <button class="favorite-btn" style="margin: 10px 0px; padding: 5px" data-id="${s.id}">❤️ Favorite</button>
-                  </a>
+                  </div>
                 </div>
                 `
               )
