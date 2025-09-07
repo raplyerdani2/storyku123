@@ -40,8 +40,8 @@ export const storiesPage = async (root, stories) => {
                       <p>lat: ${s.lat}</p>
                       <p>lon:${s.lon}</p>
                     </div>
+                    <button class="favorite-btn" style="margin: 10px 0px; padding: 5px" data-id="${s.id}">❤️ Favorite</button>
                   </a>
-                  <button class="favorite-btn" data-id="${s.id}">❤️ Favorite</button>
                 </div>
                 `
               )
@@ -51,7 +51,6 @@ export const storiesPage = async (root, stories) => {
       </div>
     `;
 
-  // === EVENT LISTENER UNTUK FAVORITE ===
   const favButtons = document.querySelectorAll(".favorite-btn");
   favButtons.forEach((btn) => {
     btn.addEventListener("click", async (e) => {
@@ -61,14 +60,11 @@ export const storiesPage = async (root, stories) => {
       if (story) {
         await saveFavoriteStoryIdb(story);
         alert("Story ditambahkan ke Favorite!");
-
-        // Redirect ke halaman Favorite
         window.location.hash = "#/favorite";
       }
     });
   });
 
-  // === LEAFLET MAP ===
   const header = document.getElementById("header");
   const footer = document.getElementById("footer");
   header.style.display = "flex";

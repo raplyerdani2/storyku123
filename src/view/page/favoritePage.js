@@ -24,8 +24,8 @@ export const favoritePage = async (root) => {
                       <p>lat: ${s.lat}</p>
                       <p>lon:${s.lon}</p>
                     </div>
+                    <button class="delete-fav" data-id="${s.id}" style="margin: 10px 0px; padding: 5px">❌ Hapus</button>
                   </a>
-                  <button class="delete-fav" data-id="${s.id}">❌ Hapus</button>
                 </div>
                 `
                 )
