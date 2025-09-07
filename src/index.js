@@ -8,12 +8,15 @@ import "./style/addStory.css";
 import { Router } from "./router.js";
 import { StoryModel } from "./model/storyModel.js";
 import { logicRegister } from "./logicRegister.js";
+import { favoritePage } from "./view/page/favoritePage.js";
 
 const app = document.getElementById("app");
 const router = new Router(app);
 const storyModel = new StoryModel();
 
 router.register("/stories", () => logicRegister.get.stories(app));
+
+router.register("/favorite", favoritePage);
 
 router.register("/stories/:id", (params) =>
   logicRegister.get.detailStories(app, params)
